@@ -1,3 +1,5 @@
+// You only need this when using slash commands.
+
 module.exports = function () {
     const { REST } = require("@discordjs/rest");
     const { Routes } = require("discord-api-types/v9");

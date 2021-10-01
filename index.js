@@ -19,6 +19,7 @@ client.commands = new Collection();
 	require(`./handlers/${handler}`)(client);
 });
 
+// You only need this line, if you're using slash commands
 // Register / reload slash commands
 require('./util/createCommands')();
 
