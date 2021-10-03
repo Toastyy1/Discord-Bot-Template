@@ -4,8 +4,10 @@ Contains a complete template build / structure for a Discord Bot (with Slash-Com
 
 ## New in this version
 
-- Sample (slash) commands
-- Fixes / Improvements 
+- Better installation instructions
+- Code improvements
+- Added a list of all available Intents (and commented them out)
+- Updated README
 
 ## Prerequisites 
 
@@ -24,12 +26,28 @@ You can install them all at once. Just execute this command in your project dire
 
 `npm install discord.js dotenv @discordjs/rest discord-api-types`
 
-## Before you start
+## How to use this template
 
-The best way to use this template is to **not** clone this repo via Git! Just download the code as ZIP file:
-<img width="918" alt="Bildschirmfoto 2021-10-01 um 12 25 51" src="https://user-images.githubusercontent.com/81110115/135605433-5c41cf3b-42bc-42f9-8f6f-f6ee8a21bbf7.png">
+The fastest way is to clone this repo via [degit](https://www.npmjs.com/package/degit):
 
-After that you should delete the `package.json` file and create a new one using the command `npm init`. You should also go to `package-lock.json` and adjust the `name` and `version` attribute to whatever your project is named like and which version it currently has!
+At first, install degit
+```
+npm install -g degit
+```
+
+In the next step you can clone this repository with a single command (Make sure you execute this in your target directory):
+
+```
+degit Toasty65/Discord-Bot-Template
+```
+
+The last step is running
+
+```
+npm i
+```
+
+And - _like magic_ - the template got cloned into your directory 
 
 **_Important:_**
 
@@ -37,7 +55,7 @@ Open `.gitignore` and remove the `#` in the line with `.env`:
 
 <img width="600" alt="Bildschirmfoto 2021-10-01 um 12 34 38" src="https://user-images.githubusercontent.com/81110115/135606499-532b79ea-29c6-423d-a21a-cf8c8b2e118d.png">
 
-**Do this step before pushing your code to GitHub! Otherwise you upload the `.env` file, containing your bot's token, etc.!**
+**Do this step before pushing your code to GitHub! Otherwise you upload the `.env` file as well, containing your bot's token, etc.!**
 
 The last thing you want to do is to fill your `.env` file. In this file, all config vars are stored. You need to add at least your bot's **token**. If you need any more config vars, you can easily add them by entering a new line, typing the name in CAPS and after the `=` you can write down the content (**No quotes needed!**)
 
@@ -72,6 +90,14 @@ When creating non-slash commands you can specify some **permission attributes** 
   - `messageCreate.js`
   - `sampleCommand.js`
   - `PREFIX` in your `.env` file
+
+- If you want to create **global** slash commands instead of **guild only** ones, head over to `createCommands.js` and remove the `guildId` parameter from this line:
+
+```
+await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
+```
+
+_(You'll also find comments everywhere in this template, explaining which file you need in specific cases)_
 
 ## Bugs, erros, improvements
 

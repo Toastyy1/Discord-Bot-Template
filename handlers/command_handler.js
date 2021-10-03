@@ -6,15 +6,13 @@ module.exports = (client) => {
   const fileArray = [];
 
   function readCommands(dir) {
-    const __dirname = rootDir;
-
     // Read out all command files
-    const files = fs.readdirSync(path.join(__dirname, dir));
+    const files = fs.readdirSync(path.join(rootDir, dir));
 
     // Loop through all the files in ./commands
     for (const file of files) {
       // Get the status of 'file' (is it a file or directory?)
-      const stat = fs.lstatSync(path.join(__dirname, dir, file));
+      const stat = fs.lstatSync(path.join(rootDir, dir, file));
 
       // If the 'file' is a directory, call the 'readCommands' function
       // again with the path of the subdirectory
