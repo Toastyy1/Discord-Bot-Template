@@ -91,11 +91,19 @@ When creating non-slash commands you can specify some **permission attributes** 
   - `sampleCommand.js`
   - `PREFIX` in your `.env` file
 
-- If you want to create **global** slash commands instead of **guild only** ones, head over to `createCommands.js` and remove the `guildId` parameter from this line:
+- If you want to create **global** slash commands instead of **guild only** ones, head over to `createCommands.js` and make the following changes
+```diff
+- await rest.put(Routes.applicationGuildCommands(clientId, guildId) 
++ await rest.put(Routes.applicationCommands(clientId))
+```
 
-```
-await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
-```
+**Case context-menu command:**
+
+- When created context-menu-commands, you need not provide a description. Keep in mind the following files as they are related to context menus:
+  - `interactionCreate.js`
+  - `msgCmd.js`
+  - `userCmd.js`
+  - `interactons_handler.js`
 
 _(You'll also find comments everywhere in this template, explaining which file you need in specific cases)_
 

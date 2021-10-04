@@ -2,29 +2,25 @@
 const prefix = process.env.PREFIX;
 
 const validatePermissions = (permissions) => {
-  const { Permissions } = require("discord.js");
-  const validPermissions = Object.keys(Permissions.FLAGS);
+	const { Permissions } = require("discord.js");
+	const validPermissions = Object.keys(Permissions.FLAGS);
 
-  for (const permission of permissions) {
-    if (!validPermissions.includes(permission)) {
-      throw new Error(`Unknown permission node "${permission}"`);
-    }
-  }
+	for (const permission of permissions) {
+		if (!validPermissions.includes(permission)) {
+			throw new Error(`Unknown permission node "${permission}"`);
+		}
+	}
 };
 
 module.exports = async (client, message) => {
-    const { member, content, guild } = message;
+	const { member, content, guild } = message;
 
-	if(message.author.bot) return;
+	if (!content.startsWith(prefix) || message.author.bot) return;
 
-	if(!content.startsWith(prefix)) return;
+	const [cmd, ...args] = content.slice(prefix.length).split(/ +/);
 
-	const args = content.slice(prefix.length).split(/ +/);
-	const cmdName = args.shift().toLowerCase();
-	const command = message.client.commands.get(cmdName)
-       || message.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
-
-	if(!command) return;
+	const command = client.commands.get(cmd.toLowerCase()) || client.commands.get(client.aliases.get(cmd.toLowerCase()))
+	if (!command) return;
 
 	let {
 		permissions = [],
@@ -37,7 +33,7 @@ module.exports = async (client, message) => {
 		guildOnly,
 	} = command;
 
-	if(guildOnly && message.channel.type === 'dm') return message.reply('This command works only on a server!');
+	if (guildOnly && message.channel.type === 'dm') return message.reply('This command works only on a server!');
 
 	// Ensure the permissions are in an array and are all valid
 	if (permissions.length) {
@@ -50,7 +46,7 @@ module.exports = async (client, message) => {
 
 	// Ensure the user has the required permissions
 	for (const permission of permissions) {
-		if (!member.hasPermission(permission)) {
+		if (!member.permissions.has(permission)) {
 			message.reply(permissionError);
 			return;
 		}
@@ -73,7 +69,7 @@ module.exports = async (client, message) => {
 		}
 	}
 
-	if(roleCount === 0 && requiredRoles.length > 0) {
+	if (roleCount === 0 && requiredRoles.length > 0) {
 		return message.reply(
 			`You need the "${missingRole}" role to use this command!`,
 		);
@@ -88,17 +84,15 @@ module.exports = async (client, message) => {
 		);
 	}
 
-	message.channel.startTyping();
+	message.channel.sendTyping();
 
-	if(guild.me.hasPermission('MANAGE_MESSAGES')) {
+	if (guild.me.permissions.has('MANAGE_MESSAGES')) {
 		message.delete()
 			.then(() => {
-				execute(message, args, Discord, client);
+				execute(client, message, args, Discord);
 			})
-			.then(() => message.channel.stopTyping(true));
 		return;
 	}
 
-	execute(message, args, Discord, client);
-	message.channel.stopTyping(true);
+	execute(client, message, args, Discord);
 };
