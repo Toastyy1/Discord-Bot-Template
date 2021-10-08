@@ -16,10 +16,11 @@ module.exports = async (client, message) => {
 	const { member, content, guild } = message;
 
 	if (!content.startsWith(prefix) || message.author.bot) return;
+	const args = content.slice(prefix.length).split(/ +/);
+	const cmdName = args.shift().toLowerCase();
+	const command = message.client.commands.get(cmdName)
+       || message.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
 
-	const [cmd, ...args] = content.slice(prefix.length).split(/ +/);
-
-	const command = client.commands.get(cmd.toLowerCase()) || client.commands.get(client.aliases.get(cmd.toLowerCase()))
 	if (!command) return;
 
 	let {

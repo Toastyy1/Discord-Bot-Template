@@ -1,8 +1,12 @@
 module.exports = {
-    name: "ping",
-    description: "latency of the bot to discord",
-
-    execute: async(client, message, args) => {
-        return message.reply("Pong!")
-    }
-}
+    // Just some example attributes
+	name: 'name',
+	guildOnly: true,
+	minArgs: 1,
+	maxArgs: 1,
+	expectedArgs: '<name>',
+	premissions: ['ADMINISTRATOR'],
+	execute: async (message, args) => {
+        message.channel.send(`Hello ${args[0]}!`);
+	},
+};
