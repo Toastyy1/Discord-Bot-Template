@@ -33,11 +33,5 @@ module.exports = (client) => {
     if (command.name) {
       client.commands.set(command.name, command);
     }
-
-    if (command.aliases && Array.isArray(command.aliases)) {
-      command.aliases.forEach((alias) => {
-        client.aliases.set(alias, command.name)
-      })
-    }
   }
 };
