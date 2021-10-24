@@ -6,7 +6,7 @@ Contains a complete template build / structure for a Discord Bot (with Slash-Com
 
 - Corrected some code
 - Updated README
-
+- Added example .env file
 ## Prerequisites 
 
 - Latest [Git](https://git-scm.com) version installed
