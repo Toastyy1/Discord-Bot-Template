@@ -4,9 +4,7 @@ Contains a complete template build / structure for a Discord Bot (with Slash-Com
 
 ## New in this version
 
-- Better installation instructions
-- Code improvements
-- Added a list of all available Intents (and commented them out)
+- Corrected some code
 - Updated README
 
 ## Prerequisites 
@@ -24,7 +22,9 @@ Following npm-packages are required to run this template:
 
 You can install them all at once. Just execute this command in your project directory via the terminal:
 
-`npm install discord.js dotenv @discordjs/rest discord-api-types`
+```
+npm install discord.js dotenv @discordjs/rest discord-api-types
+```
 
 ## How to use this template
 
@@ -96,14 +96,6 @@ When creating non-slash commands you can specify some **permission attributes** 
 - await rest.put(Routes.applicationGuildCommands(clientId, guildId) 
 + await rest.put(Routes.applicationCommands(clientId))
 ```
-
-**Case context-menu command:**
-
-- When created context-menu-commands, you need not provide a description. Keep in mind the following files as they are related to context menus:
-  - `interactionCreate.js`
-  - `msgCmd.js`
-  - `userCmd.js`
-  - `interactons_handler.js`
 
 _(You'll also find comments everywhere in this template, explaining which file you need in specific cases)_
 
