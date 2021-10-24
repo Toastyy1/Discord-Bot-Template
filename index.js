@@ -1,4 +1,5 @@
 require('dotenv').config();
+const fs = require("fs");
 const { Client, Intents, Collection } = require('discord.js');
 
 // Create a new Discord client
@@ -26,8 +27,8 @@ const client = new Client({
 
 client.commands = new Collection();
 
-// Load all commands in ./commands/ into the Collection
-['command_handler','event_handler'].forEach(handler => {
+// Call all handlers to register commands and events
+fs.readdirSync('./handlers').forEach(handler => {
 	require(`./handlers/${handler}`)(client);
 });
 

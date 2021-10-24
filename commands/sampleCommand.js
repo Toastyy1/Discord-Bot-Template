@@ -5,7 +5,7 @@ module.exports = {
 	minArgs: 1,
 	maxArgs: 1,
 	expectedArgs: '<name>',
-	premissions: ['ADMINISTRATOR'],
+	permissions: ['ADMINISTRATOR'],
 	execute: async (message, args) => {
         message.channel.send(`Hello ${args[0]}!`);
 	},

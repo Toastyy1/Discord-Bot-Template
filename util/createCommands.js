@@ -23,7 +23,11 @@ module.exports = async () => {
   try {
     console.log("Started refreshing application (/) commands.");
 
-    // Delete the 'guildId' parameter if you want to create global slash commands.
+    // For Global Slash Commands, use the following code instead:
+    // await rest.put(Routes.applicationCommands(clientId), {
+    //   body: commands,
+    // });
+
     await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
       body: commands,
     });
